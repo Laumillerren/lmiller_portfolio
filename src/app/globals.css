@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #bdcfb5;
+  --ink: #2d3047;
+  --ink-soft: #463f1a;
+  --rule: rgba(45, 48, 71, 0.3);
+  --accent: #fe5e41;
+  --cloud: #ffffff;
+  --grass: #4a6b3e;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-rule: var(--rule);
+  --color-accent: var(--accent);
+  --font-mono: var(--font-plex-mono);
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+}
+
+@keyframes cow-leg-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(2px);
+  }
+}
+
+.cow-leg {
+  display: inline-block;
+  width: 1ch;
+  text-align: center;
+  animation: cow-leg-bob 0.55s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cow-leg {
+    animation: none;
+  }
+}
+
+.cow-glyph {
+  color: var(--ink);
+  text-align: left;
+  transition: color 0.2s ease;
+}
+
+.cow-glyph[data-visited="true"] {
+  color: var(--ink-soft);
+}
+
+.group:hover .cow-glyph,
+.group:focus-visible .cow-glyph,
+.group[aria-expanded="true"] .cow-glyph {
+  color: var(--accent);
+}
+
+@keyframes cloud-drift {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(16px);
+  }
+}
+
+.cloud {
+  color: var(--cloud);
+  animation: cloud-drift 16s ease-in-out infinite;
+}
+
+@keyframes grass-sway {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+}
+
+.grass-blade {
+  display: inline-block;
+  transform-origin: bottom center;
+  animation: grass-sway 2.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cloud,
+  .grass-blade {
+    animation: none;
+  }
+}
