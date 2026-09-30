@@ -1,5 +1,6 @@
 import { Cow } from "@/components/Cow";
 import { BackToCows } from "@/components/BackToCows";
+import { BASE_PATH } from "@/lib/site";
 
 const links = [
   {
@@ -17,7 +18,7 @@ const links = [
     label: "RESUME",
     // Drop the file at public/resume.pdf and this link starts working —
     // no code changes needed.
-    href: "/resume.pdf",
+    href: `${BASE_PATH}/resume.pdf`,
     display: "Download PDF",
     newTab: true,
   },
