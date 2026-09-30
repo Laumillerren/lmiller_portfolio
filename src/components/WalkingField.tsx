@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useMotionValue } from "framer-motion";
+import { motion, useMotionValue, useReducedMotion } from "framer-motion";
 import { WalkingFieldContext } from "./WalkingFieldContext";
 
 const DESKTOP_QUERY = "(min-width: 768px)";
@@ -16,6 +16,7 @@ export function WalkingField({
 }) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const rowRef = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReducedMotion();
 
   // The raw scroll target. Each cow springs toward this with its own
   // stiffness/damping (see CowUnit), so they all end up at exactly the
@@ -107,7 +108,12 @@ export function WalkingField({
     <WalkingFieldContext.Provider
       value={{ shift: rawShift, locked, setLocked, mouseX, mouseY, mouseActive }}
     >
-      <section className="bg-paper md:h-screen overflow-visible md:overflow-hidden flex flex-col">
+      <motion.section
+        initial={reduceMotion ? false : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+        className="bg-paper md:h-screen overflow-visible md:overflow-hidden flex flex-col"
+      >
         {top}
         <div
           ref={viewportRef}
@@ -120,7 +126,7 @@ export function WalkingField({
             {children}
           </div>
         </div>
-      </section>
+      </motion.section>
     </WalkingFieldContext.Provider>
   );
 }
