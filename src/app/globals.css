@@ -8,6 +8,7 @@
   --accent: #fe5e41;
   --cloud: #ffffff;
   --grass: #4a6b3e;
+  --cream: #f3ecd9;
 }
 
 @theme inline {
@@ -16,6 +17,7 @@
   --color-ink-soft: var(--ink-soft);
   --color-rule: var(--rule);
   --color-accent: var(--accent);
+  --color-cream: var(--cream);
   --font-mono: var(--font-plex-mono);
 }
 
@@ -61,6 +63,21 @@ body {
 .group:hover .cow-glyph,
 .group:focus-visible .cow-glyph,
 .group[aria-expanded="true"] .cow-glyph {
+  color: var(--accent);
+}
+
+/* The footer sits on a dark navy background, so its cows need light ink
+   instead of the site-wide dark ink to stay visible. */
+footer .cow-glyph {
+  color: var(--cream);
+}
+
+footer .cow-glyph[data-visited="true"] {
+  color: color-mix(in srgb, var(--cream) 55%, transparent);
+}
+
+footer .group:hover .cow-glyph,
+footer .group:focus-visible .cow-glyph {
   color: var(--accent);
 }
 

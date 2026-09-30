@@ -1,9 +1,7 @@
 import { CowUnit } from "@/components/CowUnit";
 import { WalkingField } from "@/components/WalkingField";
-import { SkillCow } from "@/components/SkillCow";
 import { Cloud } from "@/components/Cloud";
 import { work } from "@/data/work";
-import { skills } from "@/data/skills";
 import { otherThings } from "@/data/otherThings";
 
 const hero = (
@@ -60,18 +58,16 @@ export default function Home() {
             key={w.slug}
             href={`/work/${w.slug}`}
             label={w.title.toUpperCase()}
-            meta={w.meta}
+            meta={w.tools.join(" · ")}
             variant={w.variant}
           />
-        ))}
-        {skills.map((s) => (
-          <SkillCow key={s.id} label={s.label.toUpperCase()} blurb={s.blurb} />
         ))}
         {otherThings.map((o) => (
           <CowUnit
             key={o.slug}
             href={`/other/${o.slug}`}
             label={o.title.toUpperCase()}
+            meta={o.tools.join(" · ")}
             variant={o.variant}
           />
         ))}

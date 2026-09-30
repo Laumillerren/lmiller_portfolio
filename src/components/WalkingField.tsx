@@ -64,7 +64,7 @@ export function WalkingField({
   }, [rawShift]);
 
   return (
-    <section className="md:h-screen overflow-visible md:overflow-hidden flex flex-col">
+    <section className="bg-paper md:h-screen overflow-visible md:overflow-hidden flex flex-col">
       {top}
       <div
         ref={viewportRef}
