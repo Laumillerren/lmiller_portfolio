@@ -15,8 +15,8 @@ export function Footer() {
           </p>
         </div>
         <div className="flex flex-col sm:flex-row items-center gap-14">
-          <CowUnit href="/about" label="ABOUT" />
-          <CowUnit href="/contact" label="CONTACT" />
+          <CowUnit href="/about" label="ABOUT" ctaLabel="READ MORE →" />
+          <CowUnit href="/contact" label="CONTACT" ctaLabel="GET IN TOUCH →" />
         </div>
         <div className="max-w-2xl">
           <p className="text-[11px] tracking-[0.2em] text-cream mb-3">

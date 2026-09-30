@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { useMotionValue } from "framer-motion";
+import { WalkingFieldContext } from "./WalkingFieldContext";
 
 const DESKTOP_QUERY = "(min-width: 768px)";
+const TOUCH_QUERY = "(pointer: coarse)";
 
 export function WalkingField({
   top,
@@ -14,17 +16,32 @@ export function WalkingField({
 }) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const rowRef = useRef<HTMLDivElement>(null);
+
+  // The raw scroll target. Each cow springs toward this with its own
+  // stiffness/damping (see CowUnit), so they all end up at exactly the
+  // same rest position -- no per-cow drift that could push one past the
+  // edge of the visible row by the end of the scroll.
   const rawShift = useMotionValue(0);
-  const smoothShift = useSpring(rawShift, { stiffness: 260, damping: 32, mass: 0.6 });
-  const x = useTransform(smoothShift, (v) => -v);
 
   const shiftValueRef = useRef(0);
   const maxShiftRef = useRef(0);
+  const lockedRef = useRef(false);
+  const [locked, setLockedState] = useState(false);
+
+  const mouseX = useMotionValue(-9999);
+  const mouseY = useMotionValue(-9999);
+  const mouseActive = useMotionValue(0);
+
+  function setLocked(next: boolean) {
+    lockedRef.current = next;
+    setLockedState(next);
+  }
 
   useEffect(() => {
     function isDesktop() {
       return window.matchMedia(DESKTOP_QUERY).matches;
     }
+    const isTouch = window.matchMedia(TOUCH_QUERY).matches;
 
     function updateMax() {
       if (rowRef.current && viewportRef.current) {
@@ -39,6 +56,13 @@ export function WalkingField({
 
     function onWheel(e: WheelEvent) {
       if (!isDesktop()) return;
+
+      // A cow's preview is open: freeze the whole scene (pan and scroll)
+      // until it's closed, so the bubble stays put while reading it.
+      if (lockedRef.current) {
+        e.preventDefault();
+        return;
+      }
 
       const maxShift = maxShiftRef.current;
       const current = shiftValueRef.current;
@@ -57,27 +81,46 @@ export function WalkingField({
     }
 
     window.addEventListener("wheel", onWheel, { passive: false });
+
+    function onPointerMove(e: PointerEvent) {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+      mouseActive.set(1);
+    }
+    function onPointerLeave() {
+      mouseActive.set(0);
+    }
+    if (!isTouch) {
+      window.addEventListener("pointermove", onPointerMove);
+      window.addEventListener("pointerleave", onPointerLeave);
+    }
+
     return () => {
       window.removeEventListener("wheel", onWheel);
       window.removeEventListener("resize", updateMax);
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("pointerleave", onPointerLeave);
     };
-  }, [rawShift]);
+  }, [rawShift, mouseX, mouseY, mouseActive]);
 
   return (
-    <section className="bg-paper md:h-screen overflow-visible md:overflow-hidden flex flex-col">
-      {top}
-      <div
-        ref={viewportRef}
-        className="flex-1 min-h-0 overflow-visible md:overflow-hidden flex md:items-center"
-      >
-        <motion.div
-          ref={rowRef}
-          style={{ x }}
-          className="flex flex-col md:flex-row items-center md:items-start gap-10 md:gap-16 w-full md:w-max px-6 sm:px-10 lg:px-14 py-6 md:py-10"
+    <WalkingFieldContext.Provider
+      value={{ shift: rawShift, locked, setLocked, mouseX, mouseY, mouseActive }}
+    >
+      <section className="bg-paper md:h-screen overflow-visible md:overflow-hidden flex flex-col">
+        {top}
+        <div
+          ref={viewportRef}
+          className="flex-1 min-h-0 overflow-visible md:overflow-hidden flex md:items-center"
         >
-          {children}
-        </motion.div>
-      </div>
-    </section>
+          <div
+            ref={rowRef}
+            className="flex flex-col md:flex-row items-center md:items-start gap-10 md:gap-16 w-full md:w-max px-6 sm:px-10 lg:px-14 py-6 md:py-10"
+          >
+            {children}
+          </div>
+        </div>
+      </section>
+    </WalkingFieldContext.Provider>
   );
 }

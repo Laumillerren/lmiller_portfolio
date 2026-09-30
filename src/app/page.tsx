@@ -1,6 +1,7 @@
 import { CowUnit } from "@/components/CowUnit";
 import { WalkingField } from "@/components/WalkingField";
 import { Cloud } from "@/components/Cloud";
+import { seededRange } from "@/lib/cowMotion";
 import { work } from "@/data/work";
 import { otherThings } from "@/data/otherThings";
 
@@ -60,6 +61,8 @@ export default function Home() {
             label={w.title.toUpperCase()}
             meta={w.tools.join(" · ")}
             variant={w.variant}
+            speed={seededRange(w.slug, 0.82, 1.18)}
+            depth={seededRange(w.slug + ":depth", 0, 1)}
           />
         ))}
         {otherThings.map((o) => (
@@ -69,6 +72,8 @@ export default function Home() {
             label={o.title.toUpperCase()}
             meta={o.tools.join(" · ")}
             variant={o.variant}
+            speed={seededRange(o.slug, 0.82, 1.18)}
+            depth={seededRange(o.slug + ":depth", 0, 1)}
           />
         ))}
       </WalkingField>
