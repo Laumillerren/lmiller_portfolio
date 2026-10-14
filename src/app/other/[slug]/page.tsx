@@ -80,6 +80,29 @@ export default async function OtherThingPage(props: PageProps<"/other/[slug]">) 
           </div>
         ) : null}
 
+        {item.experiments?.length ? (
+          <div className="mt-14 grid gap-8 md:grid-cols-2">
+            {item.experiments.map((exp, i, all) => (
+              <ProjectSection
+                key={exp.title}
+                heading={exp.title.toUpperCase()}
+                meta={exp.tools.join(" · ")}
+                index={i + 1}
+                tone={toneFor(i)}
+                className={
+                  i === all.length - 1 && all.length % 2 === 1
+                    ? "md:col-span-2"
+                    : ""
+                }
+              >
+                {exp.paragraphs.map((text) => (
+                  <p key={text}>{text}</p>
+                ))}
+              </ProjectSection>
+            ))}
+          </div>
+        ) : null}
+
         <div className="mt-16">
           <BackToCows />
         </div>

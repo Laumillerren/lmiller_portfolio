@@ -12,6 +12,12 @@ export type OtherThing = {
   wip?: boolean;
   // Optional short write-up shown on the project page. Each field is a list
   // of paragraphs.
+  // Alternative to `post` for a collection of small projects: one block each.
+  experiments?: {
+    title: string;
+    tools: string[];
+    paragraphs: string[];
+  }[];
   post?: {
     objectives: string[];
     engineering: string[];
@@ -72,22 +78,48 @@ export const otherThings: OtherThing[] = [
     repoUrl: "https://github.com/Laumillerren/Personal_Projects_LMiller",
     repoPrivate: false,
     tools: ["Python", "pandas", "scikit-learn", "RDKit", "ChEMBL API", "seaborn"],
-    post: {
-      objectives: [
-        "This is my sandbox: small, self-contained projects where I practice the full loop of pulling data, cleaning it, asking one clear question, and testing the answer. Each one is scoped to a single question, such as whether a movie's budget predicts its box office or which molecular properties separate active drug compounds from inactive ones.",
-      ],
-      engineering: [
-        "The two computational drug-discovery notebooks pull data live from ChEMBL, a curated database of bioactive molecules, through its Python API. One targets the SARS coronavirus 3C-like protease and the other human acetylcholinesterase. The pipeline filters to IC50 measurements, drops records with missing values or structures, deduplicates compounds, and writes a CSV at each stage (raw, preprocessed, curated) so every step can be rerun and inspected.",
-        "The smaller analyses are mostly cleaning work. In the movie dataset, the release year column often disagreed with the actual release date, so I rebuilt it from the date string. In the Pima diabetes data, zeros in fields like glucose and BMI are really missing values, so they had to be handled before modeling.",
-      ],
-      science: [
-        "For drug discovery, compounds were labeled active (IC50 < 1,000 nM), inactive (> 10,000 nM), or intermediate. IC50 was converted to pIC50 (the negative log of the molar concentration) and each compound was described with Lipinski's rule-of-five descriptors, computed with RDKit. Mann–Whitney U tests then compared actives and inactives. For acetylcholinesterase, all four descriptors differed significantly. For the coronavirus protease, molecular weight and hydrogen-bond donors and acceptors did, but LogP did not.",
-        "The movie analysis found that budget and gross revenue were strongly correlated (r = 0.74) and votes and gross moderately so (0.61), while a film's rating had almost no relationship to its budget (0.07). Random forest classifiers on the Iris and diabetes datasets were used to practice train/test splits and feature importance. Glucose and BMI came out as the strongest predictors of diabetes.",
-      ],
-      takeaways: [
-        "Most of the work in each project was getting the data into a trustworthy shape. Defining the labels (what counts as \"active\", what counts as missing) shaped the results more than the choice of test or model.",
-      ],
-    },
+    experiments: [
+      {
+        title: "Drug discovery: SARS coronavirus",
+        tools: ["ChEMBL API", "RDKit", "SciPy"],
+        paragraphs: [
+          "Which molecular properties separate compounds that inhibit the SARS coronavirus 3C-like protease (an enzyme the virus needs to replicate) from those that don't? I pulled every IC50 measurement for that target from ChEMBL through its Python API and dropped records missing a value or a structure. That left 133 compounds: 15 active (IC50 under 1,000 nM), 103 inactive (over 10,000 nM), and 15 in between.",
+          "I converted IC50 to pIC50 and computed Lipinski's rule-of-five descriptors with RDKit. Mann–Whitney U tests found that molecular weight and hydrogen-bond donors and acceptors differed significantly between actives and inactives, but LogP did not. With only 15 actives, it's a small sample, so the results are a starting point rather than a conclusion.",
+        ],
+      },
+      {
+        title: "Drug discovery: acetylcholinesterase",
+        tools: ["ChEMBL API", "RDKit", "SciPy"],
+        paragraphs: [
+          "The same pipeline, run on a much larger target: acetylcholinesterase, the enzyme that breaks down the neurotransmitter acetylcholine and a target for Alzheimer's drugs. ChEMBL returned 6,157 curated compounds (2,608 active, 2,012 inactive, and 1,537 intermediate), with each stage written to CSV so it could be rerun and inspected.",
+          "This time all four Lipinski descriptors (molecular weight, LogP, and hydrogen-bond donors and acceptors) differed significantly between actives and inactives. Running one reusable pipeline on two targets showed how much the conclusions depend on how much data there is.",
+        ],
+      },
+      {
+        title: "Movie budgets and box office",
+        tools: ["pandas", "seaborn"],
+        paragraphs: [
+          "What actually predicts how much a movie earns? The dataset covers 7,668 films released between 1980 and 2020, with budget, gross, votes, rating score, runtime, genre, and studio. Cleaning came first: the year column often disagreed with the actual release date, so I rebuilt it from the release string. I also encoded text fields like studio and director as numbers so they could go into the correlation matrix.",
+          "Budget had the strongest relationship with gross (r = 0.74), followed by number of votes (0.61). A film's score was barely related to its budget (0.07). Spending more buys box office, not better reviews.",
+        ],
+      },
+      {
+        title: "Red wine quality",
+        tools: ["pandas", "seaborn"],
+        paragraphs: [
+          "The data covers 1,599 Portuguese Vinho Verde red wines, each with 11 chemical measurements (acidity, residual sugar, sulphates, alcohol, and more) and a quality score from tasters. There's no grape type, brand, or price, just chemistry.",
+          "After confirming nothing was missing, I split the wines into \"good\" (quality above 6.5) and the rest, which left 217 good wines, about 14%. I then compared each chemical property's distribution across the two groups, and used a correlation heatmap and pair plots to see which properties move with quality and with each other.",
+        ],
+      },
+      {
+        title: "Random forests: diabetes and iris",
+        tools: ["scikit-learn"],
+        paragraphs: [
+          "Practice building random forest models from start to finish. The diabetes dataset (768 patients, from the National Institute of Diabetes and Digestive and Kidney Diseases) needed cleaning first. Zeros in glucose, blood pressure, skin thickness, insulin, and BMI are physically impossible, so I treated them as missing and filled them with each column's mean.",
+          "With an 80/20 split, the model reached 73% accuracy and 64% precision on 154 held-out patients, and feature importance ranked glucose first, followed by BMI. The iris notebook runs the same workflow on a cleaner dataset, where petal width and length were the most important features.",
+        ],
+      },
+    ],
   },
   {
     slug: "wastewise",

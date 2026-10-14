@@ -12,10 +12,12 @@ export function ProjectSection({
   heading,
   index,
   tone = "cream",
+  meta,
   className = "",
   children,
 }: {
   heading: string;
+  meta?: string;
   index: number;
   tone?: BlockTone;
   className?: string;
@@ -26,7 +28,7 @@ export function ProjectSection({
     <section
       className={`${t.block} border-2 border-ink p-6 sm:p-7 shadow-[6px_6px_0_var(--ink)] motion-safe:transition-transform motion-safe:duration-200 motion-safe:hover:-translate-y-1 ${className}`}
     >
-      <div className="flex items-baseline gap-3 mb-4">
+      <div className={`flex items-baseline gap-3 ${meta ? "mb-1" : "mb-4"}`}>
         <span className={`text-3xl font-semibold leading-none ${t.number}`}>
           {String(index).padStart(2, "0")}
         </span>
@@ -34,6 +36,11 @@ export function ProjectSection({
           {heading}
         </h2>
       </div>
+      {meta ? (
+        <p className={`mb-4 text-[10px] tracking-[0.14em] uppercase ${t.label}`}>
+          {meta}
+        </p>
+      ) : null}
       <div className="text-sm leading-relaxed space-y-4">{children}</div>
     </section>
   );
