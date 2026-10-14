@@ -10,7 +10,9 @@ export type WorkProject = {
   // Proprietary work projects don't get a repo link. Once a write-up is
   // published, set this to the article's URL.
   mediumUrl?: string;
-  sections: {
+  // Optional on-page write-up. Leave it out when the story lives elsewhere
+  // (e.g. a Medium article).
+  sections?: {
     overview: string;
     problem: string;
     data: string;
@@ -22,8 +24,6 @@ export type WorkProject = {
   };
 };
 
-const placeholder = (label: string) => `${label} — to be written.`;
-
 export const work: WorkProject[] = [
   {
     slug: "item-harmonization",
@@ -32,15 +32,6 @@ export const work: WorkProject[] = [
     variant: "plain",
     tools: ["Python"],
     wip: true,
-    sections: {
-      overview: placeholder("Overview"),
-      problem: placeholder("The problem"),
-      data: placeholder("The data"),
-      approach: placeholder("Approach"),
-      role: placeholder("My role"),
-      outcome: placeholder("Outcome"),
-      learned: placeholder("What I learned"),
-    },
   },
 ];
 
