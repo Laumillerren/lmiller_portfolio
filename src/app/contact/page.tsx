@@ -1,26 +1,20 @@
 import { Cow } from "@/components/Cow";
 import { BackToCows } from "@/components/BackToCows";
-import { BASE_PATH } from "@/lib/site";
+import { ResumeNotice } from "@/components/ResumeNotice";
+
+const EMAIL = "laurenthemiller@gmail.com";
 
 const links = [
   {
     label: "EMAIL",
-    href: "mailto:laurenthemiller@gmail.com",
-    display: "laurenthemiller@gmail.com",
+    href: `mailto:${EMAIL}`,
+    display: EMAIL,
   },
   { label: "GITHUB", href: "https://github.com/Laumillerren", display: "github.com/Laumillerren" },
   {
     label: "LINKEDIN",
     href: "https://www.linkedin.com/in/lauren-miller-999263171/",
     display: "linkedin.com/in/lauren-miller-999263171",
-  },
-  {
-    label: "RESUME",
-    // Drop the file at public/resume.pdf and this link starts working —
-    // no code changes needed.
-    href: `${BASE_PATH}/resume.pdf`,
-    display: "Download PDF",
-    newTab: true,
   },
 ];
 
@@ -43,14 +37,18 @@ export default function ContactPage() {
               </p>
               <a
                 href={l.href}
-                target={l.newTab ? "_blank" : undefined}
-                rel={l.newTab ? "noopener noreferrer" : undefined}
                 className="text-sm hover:text-accent transition-colors underline underline-offset-4 decoration-rule"
               >
                 {l.display}
               </a>
             </li>
           ))}
+          <li>
+            <p className="text-[11px] tracking-[0.2em] text-ink-soft mb-1">
+              RESUME
+            </p>
+            <ResumeNotice email={EMAIL} />
+          </li>
         </ul>
 
         <div className="mt-16">

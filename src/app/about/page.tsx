@@ -24,15 +24,13 @@ export default function AboutPage() {
             sense of data so other people can trust it.
           </p>
           <p>
-            Outside of work I like building small, complete things: a tracker
-            for my book club, a place to log yoga hours, a way to catalog
-            every quilt I&apos;ve made, a stats site for basketball. None of
-            it is groundbreaking — I just like having a reason to learn
-            something new and ship it.
+            Outside of work I like to do small projects for myself and the
+            people around me, like a tracker for my book club, a teaching-hours
+            log for yoga teachers, and a stats site for a basketball club.
           </p>
           <p>
-            This site is one of those things. The cows are the point as much
-            as the projects are.
+            I like having a reason to learn something new, and seeing a
+            project through from messy data to something people actually use.
           </p>
         </div>
 

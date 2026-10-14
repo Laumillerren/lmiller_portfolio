@@ -10,6 +10,7 @@ import {
 } from "framer-motion";
 import { Cow, type CowVariant } from "./Cow";
 import { SpeechBubble } from "./SpeechBubble";
+import { WipSign } from "./WipSign";
 import { useVisited } from "@/lib/useVisited";
 import { WalkingFieldContext } from "./WalkingFieldContext";
 
@@ -52,6 +53,7 @@ export function CowUnit({
   className = "",
   enterIndex,
   enterAngle = 0,
+  wip = false,
 }: {
   href: string;
   label: string;
@@ -68,6 +70,7 @@ export function CowUnit({
   // Contact cows), which just appear at rest.
   enterIndex?: number;
   enterAngle?: number;
+  wip?: boolean;
 }) {
   const { visited, markVisited } = useVisited(href);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -249,8 +252,11 @@ export function CowUnit({
             type="button"
             onClick={toggle}
             aria-expanded={open}
-            className="group inline-flex flex-col items-center gap-2.5 outline-none cursor-pointer"
+            className="group relative inline-flex flex-col items-center gap-2.5 outline-none cursor-pointer"
           >
+            {wip ? (
+              <WipSign className="absolute -top-4 -right-8 z-10 pointer-events-none" />
+            ) : null}
             <SpeechBubble text={label} meta={meta} emphasized={open} />
             <span
               className="cow-glyph transition-transform duration-300 ease-out group-hover:-translate-y-1 group-focus-visible:-translate-y-1"
@@ -287,6 +293,11 @@ export function CowUnit({
             <p className="text-xs tracking-[0.1em] uppercase">{label}</p>
             {meta ? (
               <p className="mt-1 text-[10px] text-ink-soft">{meta}</p>
+            ) : null}
+            {wip ? (
+              <p className="mt-2 text-[10px] font-semibold tracking-[0.14em] text-accent">
+                WORK IN PROGRESS
+              </p>
             ) : null}
             <Link
               href={href}

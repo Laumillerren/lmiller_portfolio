@@ -4,6 +4,7 @@ import { BackToCows } from "@/components/BackToCows";
 import { ProjectSection } from "@/components/ProjectSection";
 import { ArchitectureFlow } from "@/components/ArchitectureFlow";
 import { ToolTags } from "@/components/ToolTags";
+import { WipBanner } from "@/components/WipSign";
 import { work, getWork } from "@/data/work";
 
 export function generateStaticParams() {
@@ -17,6 +18,7 @@ export default async function WorkPage(props: PageProps<"/work/[slug]">) {
 
   return (
     <main className="flex-1 w-full bg-paper">
+      {project.wip ? <WipBanner /> : null}
       <div className="max-w-3xl mx-auto px-6 sm:px-10 py-20 md:py-28">
         <div className="flex items-start gap-4 mb-8">
           <Cow variant={project.variant} size={16} className="text-ink shrink-0" />

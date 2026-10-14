@@ -6,6 +6,7 @@ export type WorkProject = {
   meta: string;
   variant: CowVariant;
   tools: string[];
+  wip?: boolean;
   // Proprietary work projects don't get a repo link. Once a write-up is
   // published, set this to the article's URL.
   mediumUrl?: string;
@@ -30,6 +31,7 @@ export const work: WorkProject[] = [
     meta: "Python · NLP · Data Quality",
     variant: "plain",
     tools: ["Python"],
+    wip: true,
     sections: {
       overview: placeholder("Overview"),
       problem: placeholder("The problem"),

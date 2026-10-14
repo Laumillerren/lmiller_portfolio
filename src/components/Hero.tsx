@@ -53,8 +53,7 @@ export function Hero() {
             Data Engineer · Analytics · Data Science
           </p>
           <p className="mt-4 max-w-md text-sm sm:text-base text-ink-soft italic">
-            I build data systems, analyze messy problems, and make things on
-            the internet.
+            Turning messy data into things people actually use.
           </p>
         </motion.div>
 

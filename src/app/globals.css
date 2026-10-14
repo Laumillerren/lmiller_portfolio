@@ -50,6 +50,15 @@ body {
   }
 }
 
+/* Caution-tape stripes for work-in-progress markers (see WipSign.tsx). */
+.caution-stripes {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--accent) 0 8px,
+    var(--ink) 8px 16px
+  );
+}
+
 .cow-glyph {
   color: var(--ink);
   text-align: left;

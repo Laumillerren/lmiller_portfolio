@@ -12,6 +12,7 @@ const allItems = [
     label: w.title.toUpperCase(),
     meta: w.tools.join(" · "),
     variant: w.variant,
+    wip: w.wip ?? false,
     speed: seededRange(w.slug, 0.82, 1.18),
     depth: seededRange(w.slug + ":depth", 0, 1),
   })),
@@ -21,6 +22,7 @@ const allItems = [
     label: o.title.toUpperCase(),
     meta: o.tools.join(" · "),
     variant: o.variant,
+    wip: o.wip ?? false,
     speed: seededRange(o.slug, 0.82, 1.18),
     depth: seededRange(o.slug + ":depth", 0, 1),
   })),
@@ -37,6 +39,7 @@ export default function Home() {
             label={item.label}
             meta={item.meta}
             variant={item.variant}
+            wip={item.wip}
             speed={item.speed}
             depth={item.depth}
             enterIndex={i}
