@@ -1,5 +1,45 @@
 import { Cow } from "@/components/Cow";
 import { BackToCows } from "@/components/BackToCows";
+import { SpeechBubble } from "@/components/SpeechBubble";
+import { BASE_PATH } from "@/lib/site";
+
+function Sticker({
+  src,
+  alt,
+  says,
+  note,
+  className,
+}: {
+  src: string;
+  alt: string;
+  says: string;
+  // Shown under the sticker on hover, keyboard focus, or tap.
+  note?: string;
+  className: string;
+}) {
+  return (
+    <figure
+      tabIndex={note ? 0 : undefined}
+      className="group relative flex flex-col items-center gap-4 outline-none"
+    >
+      <SpeechBubble text={says} />
+      {/* eslint-disable-next-line @next/next/no-img-element -- static export, no image optimizer */}
+      <img
+        src={`${BASE_PATH}${src}`}
+        alt={alt}
+        className={`sticker h-auto motion-safe:transition-transform motion-safe:duration-300 group-hover:rotate-0 group-hover:scale-105 ${className}`}
+      />
+      {note ? (
+        <figcaption
+          aria-hidden="true"
+          className="pointer-events-none absolute top-full left-1/2 z-10 mt-4 w-52 -translate-x-1/2 translate-y-1 border-2 border-ink bg-cream px-3 py-2 text-center text-[11px] leading-snug text-ink opacity-0 shadow-[4px_4px_0_var(--ink)] motion-safe:transition-all motion-safe:duration-200 group-hover:translate-y-0 group-hover:opacity-100 group-focus:translate-y-0 group-focus:opacity-100"
+        >
+          {note}
+        </figcaption>
+      ) : null}
+    </figure>
+  );
+}
 
 export default function AboutPage() {
   return (
@@ -15,6 +55,22 @@ export default function AboutPage() {
               Data Engineer · Analytics · Data Science
             </p>
           </div>
+        </div>
+
+        <div className="flex justify-center items-end gap-8 sm:gap-14 mb-14">
+          <Sticker
+            src="/about/lauren.png"
+            alt="Lauren Miller"
+            says="HI!"
+            className="w-36 sm:w-52 -rotate-3"
+          />
+          <Sticker
+            src="/about/cow.png"
+            alt="Cherry, my favorite cow from the farm I worked at in high school"
+            says="MOO"
+            note="This is Cherry, my favorite cow from the farm I worked at in high school."
+            className="w-40 sm:w-56 rotate-3"
+          />
         </div>
 
         <div className="space-y-5 text-sm leading-relaxed max-w-xl">

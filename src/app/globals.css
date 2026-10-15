@@ -51,6 +51,14 @@ body {
   }
 }
 
+/* Die-cut sticker look for the About page photos: a white outline traced
+   around the transparent PNG, plus a soft shadow. */
+.sticker {
+  filter: drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff)
+    drop-shadow(0 3px 0 #fff) drop-shadow(0 -3px 0 #fff)
+    drop-shadow(4px 6px 0 rgba(45, 48, 71, 0.25));
+}
+
 /* Caution-tape stripes for work-in-progress markers (see WipSign.tsx). */
 .caution-stripes {
   background: repeating-linear-gradient(
