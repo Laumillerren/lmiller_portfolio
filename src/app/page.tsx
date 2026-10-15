@@ -5,12 +5,18 @@ import { seededRange } from "@/lib/cowMotion";
 import { work } from "@/data/work";
 import { otherThings } from "@/data/otherThings";
 
+// Speech bubbles stay on one line, so only the first few tools fit; the
+// project page lists them all.
+function bubbleTools(tools: string[]) {
+  return tools.slice(0, 4).join(" · ");
+}
+
 const allItems = [
   ...work.map((w) => ({
     key: w.slug,
     href: `/work/${w.slug}`,
     label: w.title.toUpperCase(),
-    meta: w.tools.join(" · "),
+    meta: bubbleTools(w.tools),
     variant: w.variant,
     wip: w.wip ?? false,
     speed: seededRange(w.slug, 0.82, 1.18),
@@ -20,7 +26,7 @@ const allItems = [
     key: o.slug,
     href: `/other/${o.slug}`,
     label: o.title.toUpperCase(),
-    meta: o.tools.join(" · "),
+    meta: bubbleTools(o.tools),
     variant: o.variant,
     wip: o.wip ?? false,
     speed: seededRange(o.slug, 0.82, 1.18),

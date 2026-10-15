@@ -62,12 +62,39 @@ export const otherThings: OtherThing[] = [
   },
   {
     slug: "basketball-stats",
-    title: "Basketball Stats",
-    description: "A basketball statistics website.",
+    title: "Penn Club Basketball Stats",
+    description:
+      "A stats website for Penn's club basketball program that any club member can maintain. Club members enter raw box scores in a Google Sheet they already know, and the site turns them into team pages, player profiles, box scores, and leaderboards, with no logins, no database, and no code for anyone to learn.",
     variant: "basketball",
     repoUrl: "https://github.com/Laumillerren/penn_basketball_website",
     repoPrivate: true,
-    tools: [],
+    tools: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Recharts",
+      "Google Sheets API",
+      "Google Apps Script",
+      "Vercel",
+    ],
+    mediumUrl:
+      "https://medium.com/@laurenthemiller/building-a-basketball-stats-website-that-anyone-can-maintain-11a352a50764",
+    post: {
+      objectives: [
+        "Before choosing any technology, I wrote down who would use it. Busy club members need to record box scores after games without training. Players and fans want scores and leaderboards on their phones in a few seconds. And next year's club members have to take it all over without learning to program. The budget was zero, leadership changes every year, people entering data will make mistakes, and if the numbers are wrong, nobody will trust the site. Every decision traces back to one of those needs.",
+      ],
+      engineering: [
+        "The Google Sheet is the database, and the website only reads from it. The sheet has six tabs that work like linked tables: Seasons, Teams, Players, Rosters, Games, and PlayerGameStats, joined by permanent IDs. A player who changes teams just gets a new roster row, so their whole career stays connected to one person. The site connects through a Google Cloud service account with view-only access, reads all six tabs in a single request, and keeps a cached copy that refreshes in the background once it's more than two minutes old. If Google is unavailable, it keeps showing the last good data and never substitutes made-up numbers.",
+        "A small Google Apps Script adds a Penn Stats menu to the sheet. Linked columns become dropdowns of readable names, IDs fill themselves in, stat cells only accept whole numbers, and cells turn red when something is impossible, like more shots made than attempted.",
+      ],
+      science: [
+        "People enter only raw counts (shots made and attempted, rebounds, assists, and so on), and the site calculates everything else the same way every time: points, shooting percentages, averages, and win-loss records. Season shooting percentages are total makes divided by total attempts, not an average of game percentages. A blank cell means \"not recorded\" and shows as a dash rather than a zero, and games a player didn't play in don't count against their averages. These rules live in one place and are tested.",
+        "Every time the site reads the sheet, it validates every row. A Data Health page lists the rows it had to leave out, with the tab, row number, and a plain-English reason like \"FG made (5) > attempted (4)\". It also lists warnings worth a look, such as player points that don't add up to the team's final score, so mistakes get fixed at the source.",
+      ],
+      takeaways: [
+        "Use tools people already know, and push complexity away from them: calculations, IDs, and checks belong in the system, not in a club member's head. If it works as intended, next year's club members will open a spreadsheet, enter the latest game, and the website will take it from there.",
+      ],
+    },
   },
   {
     slug: "experiments",
