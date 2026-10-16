@@ -40,6 +40,7 @@ export const otherThings: OtherThing[] = [
     repoPrivate: true,
     liveUrl: "https://bookclub-tracker-zeta.vercel.app/",
     liveRequiresLogin: true,
+    wip: true,
     tools: ["Next.js", "Prisma", "Framer Motion", "Vercel Blob"],
   },
   {
