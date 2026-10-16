@@ -11,6 +11,8 @@ function bubbleTools(tools: string[]) {
   return tools.slice(0, 4).join(" · ");
 }
 
+// Work-in-progress projects go to the end of the row; the rest keep their
+// order from the data files.
 const allItems = [
   ...work.map((w) => ({
     key: w.slug,
@@ -32,7 +34,7 @@ const allItems = [
     speed: seededRange(o.slug, 0.82, 1.18),
     depth: seededRange(o.slug + ":depth", 0, 1),
   })),
-];
+].sort((a, b) => Number(a.wip) - Number(b.wip));
 
 export default function Home() {
   return (
