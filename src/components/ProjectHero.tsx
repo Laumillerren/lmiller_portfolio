@@ -39,14 +39,19 @@ export function ActionLink({
   href,
   children,
   primary = false,
+  external = false,
 }: {
   href: string;
   children: React.ReactNode;
   primary?: boolean;
+  // Opens in a new tab (used for live project sites).
+  external?: boolean;
 }) {
   return (
     <a
       href={href}
+      target={external ? "_blank" : undefined}
+      rel={external ? "noopener noreferrer" : undefined}
       className={`inline-block border-2 border-ink px-4 py-2 text-xs font-semibold tracking-[0.14em] shadow-[4px_4px_0_var(--ink)] transition-[transform,box-shadow] duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_var(--ink)] ${
         primary ? "bg-accent text-ink" : "bg-cream text-ink"
       }`}

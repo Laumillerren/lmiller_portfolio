@@ -41,8 +41,13 @@ export default async function OtherThingPage(props: PageProps<"/other/[slug]">) 
         </ProjectHero>
 
         <div className="mt-10 flex flex-wrap items-center gap-4">
+          {item.liveUrl ? (
+            <ActionLink href={item.liveUrl} primary external>
+              VISIT SITE ↗
+            </ActionLink>
+          ) : null}
           {item.mediumUrl ? (
-            <ActionLink href={item.mediumUrl} primary>
+            <ActionLink href={item.mediumUrl} primary={!item.liveUrl}>
               READ ON MEDIUM →
             </ActionLink>
           ) : null}
@@ -51,12 +56,15 @@ export default async function OtherThingPage(props: PageProps<"/other/[slug]">) 
           >
             {item.repoPrivate ? "VIEW GITHUB PROFILE →" : "VIEW REPOSITORY →"}
           </ActionLink>
-          {item.repoPrivate ? (
-            <p className="text-[11px] tracking-[0.06em] text-ink-soft">
-              This repository is currently private.
-            </p>
-          ) : null}
         </div>
+        {item.liveRequiresLogin || item.repoPrivate ? (
+          <div className="mt-4 space-y-1 text-[11px] tracking-[0.06em] text-ink-soft">
+            {item.liveRequiresLogin ? (
+              <p>The live site is members-only, so it opens to a sign-in screen.</p>
+            ) : null}
+            {item.repoPrivate ? <p>This repository is currently private.</p> : null}
+          </div>
+        ) : null}
 
         <div className="mt-10">
           <ToolTags tools={item.tools} />

@@ -9,6 +9,9 @@ export type OtherThing = {
   repoPrivate: boolean;
   tools: string[];
   mediumUrl?: string;
+  // Deployed site, and whether visitors hit a login/passcode screen there.
+  liveUrl?: string;
+  liveRequiresLogin?: boolean;
   wip?: boolean;
   // Optional short write-up shown on the project page. Each field is a list
   // of paragraphs.
@@ -29,29 +32,33 @@ export type OtherThing = {
 export const otherThings: OtherThing[] = [
   {
     slug: "book-club-tracker",
-    title: "Book Club Tracker",
+    title: "Book Club Picks & Reviews",
     description:
       "A password-protected site for a book club to track meetings, book recommendations, ranked voting on the next pick, reviews, and ratings — built as an immersive reading experience rather than a typical admin dashboard. It pulls book details automatically from the Open Library API and supports multiple independent clubs from one deployment.",
     variant: "book",
     repoUrl: "https://github.com/Laumillerren/bookclub_tracker",
     repoPrivate: true,
+    liveUrl: "https://bookclub-tracker-zeta.vercel.app/",
+    liveRequiresLogin: true,
     tools: ["Next.js", "Prisma", "Framer Motion", "Vercel Blob"],
   },
   {
     slug: "yoga-tracker",
-    title: "Yoga Tracker",
+    title: "Yoga Teaching Hours Tracker",
     description:
       "A teaching-hours tracker for a small group of Philadelphia yoga teachers, replacing the personal spreadsheet most teachers keep. A daily job scrapes class schedules from the public endpoints behind studio booking widgets like Momence and Walla, then matches classes to teachers — accounting for substitutes, cancellations, and in-person/livestream duplicates — so each class can be confirmed exactly once after it ends. Teachers can also import existing spreadsheets, export to CSV, and track progress toward Yoga Alliance continuing-education renewals.",
     variant: "yoga",
     repoUrl: "https://github.com/Laumillerren/philly-yoga-platform",
     repoPrivate: true,
+    liveUrl: "https://philly-yoga-platform.vercel.app/",
+    liveRequiresLogin: true,
     tools: ["Next.js", "Supabase", "Python", "Leaflet", "Recharts"],
     mediumUrl:
       "https://medium.com/@laurenthemiller/scraping-the-schedule-how-i-built-teaching-hours-tracker-for-yoga-teachers-9514dc1dde6b",
   },
   {
     slug: "quilt-portfolio",
-    title: "Quilt Portfolio",
+    title: "Quilting Portfolio Site",
     description:
       "A Next.js site that catalogs quilting projects with a Google Sheets backend, admin editing, photo galleries with a lightbox, and technique filtering.",
     variant: "quilt",
@@ -68,6 +75,7 @@ export const otherThings: OtherThing[] = [
     variant: "basketball",
     repoUrl: "https://github.com/Laumillerren/penn_basketball_website",
     repoPrivate: true,
+    liveUrl: "https://pennbasketballwebsite.vercel.app/",
     tools: [
       "Next.js",
       "TypeScript",
@@ -98,7 +106,7 @@ export const otherThings: OtherThing[] = [
   },
   {
     slug: "experiments",
-    title: "Experiments",
+    title: "Data Science Mini-Projects",
     description:
       "A collection of smaller personal projects exploring different tools, techniques, and datasets.",
     variant: "spark",
@@ -150,7 +158,7 @@ export const otherThings: OtherThing[] = [
   },
   {
     slug: "wastewise",
-    title: "WasteWise",
+    title: "Waste Sorting Image Dataset",
     description:
       "An image dataset and machine learning model that classifies waste into recyclable, non-recyclable, and compostable categories, built from images pulled from Google, the TrashNet dataset, a drinking-waste dataset, and the TACO litter dataset.",
     variant: "data",
@@ -159,7 +167,7 @@ export const otherThings: OtherThing[] = [
     tools: ["Python", "PyTorch", "Pillow", "Google Custom Search API", "Hugging Face"],
     post: {
       objectives: [
-        "Standing at a bin, most people just want to know: does this go in recycling, compost, or trash? Getting it wrong matters. A greasy pizza box or a plastic bag can contaminate a whole load of recycling. WasteWise aims to answer that question from a photo, so the labels match the decision a person actually makes: recyclable, non-recyclable, or compostable.",
+        "Standing at a bin, most people just want to know: does this go in recycling, compost, or trash? Getting it wrong matters. A greasy pizza box or a plastic bag can contaminate a whole load of recycling. This project aims to answer that question from a photo, so the labels match the decision a person actually makes: recyclable, non-recyclable, or compostable.",
       ],
       engineering: [
         "No existing dataset used those three labels, so the main job was building one. Images came from four sources: TrashNet (six material classes), a drinking-waste dataset (4,832 cans and bottles, all recyclable), the TACO litter dataset (1,530 photos from woods, roads, and beaches, with JSON annotations), and the Google Custom Search API. The free API tier allows 100 images a day, so collection ran daily in small batches by query: apple cores, tea bags, eggshells, styrofoam cups, cigarette butts.",
@@ -175,7 +183,7 @@ export const otherThings: OtherThing[] = [
   },
   {
     slug: "ecommerce-analysis",
-    title: "Ecommerce Analysis",
+    title: "Walmart Sales Forecasting",
     description:
       "A sales-forecasting project using five years of daily Walmart sales data across California, Texas, and Wisconsin (the M5 Kaggle competition dataset), comparing Linear Regression, Random Forest, and XGBoost models.",
     variant: "spark",
@@ -200,7 +208,7 @@ export const otherThings: OtherThing[] = [
   },
   {
     slug: "bookworm-recommender",
-    title: "Bookworm Recommender",
+    title: "Goodreads Book Recommender",
     description:
       "A book recommender system built on the Goodreads interactions dataset, using TF-IDF and cosine similarity to recommend titles based on content similarity.",
     variant: "book",
@@ -209,7 +217,7 @@ export const otherThings: OtherThing[] = [
     tools: ["Python", "pandas", "scikit-learn", "SciPy", "TF-IDF", "Cosine Similarity"],
     post: {
       objectives: [
-        "Bestseller lists are the same for everyone. Bookworm aims to answer a more personal question: given the books I've loved, what are readers with similar taste loving next? It has two parts: a search that finds a book from a loosely typed title, and a recommender that turns a list of liked books into personalized picks with links and covers.",
+        "Bestseller lists are the same for everyone. This recommender aims to answer a more personal question: given the books I've loved, what are readers with similar taste loving next? It has two parts: a search that finds a book from a loosely typed title, and a recommender that turns a list of liked books into personalized picks with links and covers.",
       ],
       engineering: [
         "Goodreads closed its public API in 2020, so the project uses the UCSD Goodreads dataset scraped in 2017: a gzipped JSON file of book metadata and an interactions file with hundreds of millions of user–book ratings. Both are far too large to load at once, so everything streams line by line. The metadata pass keeps only the fields needed (ID, title, rating count, URL, cover image), drops books with 10 or fewer ratings, and normalizes titles (lowercase, punctuation stripped, whitespace collapsed) into a compact lookup table. A separate ID map joins the two files, which use different book ID schemes.",
@@ -225,7 +233,7 @@ export const otherThings: OtherThing[] = [
   },
   {
     slug: "histology-classification",
-    title: "Histology Classification",
+    title: "Breast Cancer Tissue Classifier",
     description:
       "A histology image classification project comparing several machine learning methods, completed with a classmate during a Master's in Data Science at Drexel University.",
     variant: "data",

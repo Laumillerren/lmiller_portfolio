@@ -21,6 +21,7 @@ const allItems = [
     meta: bubbleTools(w.tools),
     variant: w.variant,
     wip: w.wip ?? false,
+    liveUrl: undefined as string | undefined,
     speed: seededRange(w.slug, 0.82, 1.18),
     depth: seededRange(w.slug + ":depth", 0, 1),
   })),
@@ -31,6 +32,7 @@ const allItems = [
     meta: bubbleTools(o.tools),
     variant: o.variant,
     wip: o.wip ?? false,
+    liveUrl: o.liveUrl,
     speed: seededRange(o.slug, 0.82, 1.18),
     depth: seededRange(o.slug + ":depth", 0, 1),
   })),
@@ -48,6 +50,7 @@ export default function Home() {
             meta={item.meta}
             variant={item.variant}
             wip={item.wip}
+            liveUrl={item.liveUrl}
             speed={item.speed}
             depth={item.depth}
             enterIndex={i}

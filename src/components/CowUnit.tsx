@@ -54,6 +54,7 @@ export function CowUnit({
   enterIndex,
   enterAngle = 0,
   wip = false,
+  liveUrl,
 }: {
   href: string;
   label: string;
@@ -71,6 +72,7 @@ export function CowUnit({
   enterIndex?: number;
   enterAngle?: number;
   wip?: boolean;
+  liveUrl?: string;
 }) {
   const { visited, markVisited } = useVisited(href);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -307,6 +309,17 @@ export function CowUnit({
             >
               {ctaLabel}
             </Link>
+            {liveUrl ? (
+              <a
+                href={liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                tabIndex={open ? 0 : -1}
+                className="mt-1.5 block text-[11px] tracking-[0.1em] underline underline-offset-4 decoration-rule hover:text-accent transition-colors"
+              >
+                VISIT SITE ↗
+              </a>
+            ) : null}
           </motion.div>
         </motion.div>
       </motion.div>
