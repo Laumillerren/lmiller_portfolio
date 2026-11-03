@@ -16,7 +16,9 @@ export function generateStaticParams() {
   return otherThings.map((o) => ({ slug: o.slug }));
 }
 
-export default async function OtherThingPage(props: PageProps<"/other/[slug]">) {
+export default async function OtherThingPage(
+  props: PageProps<"/other/[slug]">,
+) {
   const { slug } = await props.params;
   const item = getOtherThing(slug);
   if (!item) notFound();
@@ -36,7 +38,11 @@ export default async function OtherThingPage(props: PageProps<"/other/[slug]">) 
     <main className="flex-1 w-full bg-paper">
       {item.wip ? <WipBanner /> : null}
       <div className="max-w-4xl mx-auto px-6 sm:px-10 py-16 md:py-24">
-        <ProjectHero title={item.title} variant={item.variant}>
+        <ProjectHero
+          title={item.title}
+          variant={item.variant}
+          meta={item.drexel ? "Drexel MS · Data Science coursework" : undefined}
+        >
           <p>{item.description}</p>
         </ProjectHero>
 
@@ -52,7 +58,11 @@ export default async function OtherThingPage(props: PageProps<"/other/[slug]">) 
             </ActionLink>
           ) : null}
           <ActionLink
-            href={item.repoPrivate ? "https://github.com/Laumillerren" : item.repoUrl}
+            href={
+              item.repoPrivate
+                ? "https://github.com/Laumillerren"
+                : item.repoUrl
+            }
           >
             {item.repoPrivate ? "VIEW GITHUB PROFILE →" : "VIEW REPOSITORY →"}
           </ActionLink>
@@ -60,9 +70,13 @@ export default async function OtherThingPage(props: PageProps<"/other/[slug]">) 
         {item.liveRequiresLogin || item.repoPrivate ? (
           <div className="mt-4 space-y-1 text-[11px] tracking-[0.06em] text-ink-soft">
             {item.liveRequiresLogin ? (
-              <p>The live site is members-only, so it opens to a sign-in screen.</p>
+              <p>
+                The live site is members-only, so it opens to a sign-in screen.
+              </p>
             ) : null}
-            {item.repoPrivate ? <p>This repository is currently private.</p> : null}
+            {item.repoPrivate ? (
+              <p>This repository is currently private.</p>
+            ) : null}
           </div>
         ) : null}
 

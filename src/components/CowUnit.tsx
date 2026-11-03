@@ -12,6 +12,7 @@ import { Cow, type CowVariant } from "./Cow";
 import { SpeechBubble } from "./SpeechBubble";
 import { WipSign } from "./WipSign";
 import { useVisited } from "@/lib/useVisited";
+import { stepSpring } from "@/lib/cowMotion";
 import { WalkingFieldContext } from "./WalkingFieldContext";
 
 const MAGNET_RADIUS = 130;
@@ -21,25 +22,6 @@ const ENTER_EASE = [0.16, 1, 0.3, 1] as const;
 const ENTER_BASE_DELAY = 0.45;
 const ENTER_STAGGER = 0.03;
 const ENTER_DISTANCE = 20;
-
-// A single damped-harmonic-oscillator step (F = -kx - cv, a = F/m).
-// Used for every spring in this component -- walking, magnet, and scale --
-// so everything is driven by one predictable, hand-rolled physics loop
-// instead of relying on framer-motion's own useSpring(motionValue) helper,
-// which turned out not to react to updates coming from outside the
-// component tree it was created in.
-function stepSpring(
-  value: number,
-  target: number,
-  velocity: number,
-  stiffness: number,
-  damping: number,
-  dt: number,
-): [number, number] {
-  const accel = -stiffness * (value - target) - damping * velocity;
-  const nextVelocity = velocity + accel * dt;
-  return [value + nextVelocity * dt, nextVelocity];
-}
 
 export function CowUnit({
   href,
@@ -55,6 +37,7 @@ export function CowUnit({
   enterAngle = 0,
   wip = false,
   liveUrl,
+  previewBelow = false,
 }: {
   href: string;
   label: string;
@@ -73,6 +56,9 @@ export function CowUnit({
   enterAngle?: number;
   wip?: boolean;
   liveUrl?: string;
+  // Open the click preview under the cow instead of above it, for cows that
+  // sit near the top of the screen (the hero's work cow).
+  previewBelow?: boolean;
 }) {
   const { visited, markVisited } = useVisited(href);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -273,12 +259,12 @@ export function CowUnit({
             animate={
               open
                 ? { opacity: 1, scale: 1, y: 0 }
-                : { opacity: 0, scale: 0.85, y: 10 }
+                : { opacity: 0, scale: 0.85, y: previewBelow ? -10 : 10 }
             }
             transition={{ type: "spring", stiffness: 320, damping: 26 }}
             style={{ pointerEvents: open ? "auto" : "none" }}
             aria-hidden={!open}
-            className="absolute left-1/2 -translate-x-1/2 bottom-full mb-3 z-20 w-56 border border-ink bg-paper px-4 py-3 text-center shadow-md"
+            className={`absolute left-1/2 -translate-x-1/2 ${previewBelow ? "top-full mt-3" : "bottom-full mb-3"} z-20 w-56 border border-ink bg-paper px-4 py-3 text-center shadow-md`}
           >
             <button
               type="button"

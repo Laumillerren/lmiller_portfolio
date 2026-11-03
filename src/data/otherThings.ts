@@ -13,14 +13,18 @@ export type OtherThing = {
   liveUrl?: string;
   liveRequiresLogin?: boolean;
   wip?: boolean;
-  // Optional short write-up shown on the project page. Each field is a list
-  // of paragraphs.
+  // Which part of the home page herd the cow walks in.
+  group: "built" | "data-science";
+  // Drexel MS coursework gets a small label on its project page.
+  drexel?: boolean;
   // Alternative to `post` for a collection of small projects: one block each.
   experiments?: {
     title: string;
     tools: string[];
     paragraphs: string[];
   }[];
+  // Optional short write-up shown on the project page. Each field is a list
+  // of paragraphs.
   post?: {
     objectives: string[];
     engineering: string[];
@@ -32,6 +36,7 @@ export type OtherThing = {
 export const otherThings: OtherThing[] = [
   {
     slug: "book-club-tracker",
+    group: "built",
     title: "Book Club Picks & Reviews",
     description:
       "A password-protected site for a book club to track meetings, book recommendations, ranked voting on the next pick, reviews, and ratings — built as an immersive reading experience rather than a typical admin dashboard. It pulls book details automatically from the Open Library API and supports multiple independent clubs from one deployment.",
@@ -45,6 +50,7 @@ export const otherThings: OtherThing[] = [
   },
   {
     slug: "yoga-tracker",
+    group: "built",
     title: "Yoga Teaching Hours Tracker",
     description:
       "A teaching-hours tracker for a small group of Philadelphia yoga teachers, replacing the personal spreadsheet most teachers keep. A daily job scrapes class schedules from the public endpoints behind studio booking widgets like Momence and Walla, then matches classes to teachers — accounting for substitutes, cancellations, and in-person/livestream duplicates — so each class can be confirmed exactly once after it ends. Teachers can also import existing spreadsheets, export to CSV, and track progress toward Yoga Alliance continuing-education renewals.",
@@ -59,6 +65,7 @@ export const otherThings: OtherThing[] = [
   },
   {
     slug: "quilt-portfolio",
+    group: "built",
     title: "Quilting Portfolio Site",
     description:
       "A Next.js site that catalogs quilting projects with a Google Sheets backend, admin editing, photo galleries with a lightbox, and technique filtering.",
@@ -70,6 +77,7 @@ export const otherThings: OtherThing[] = [
   },
   {
     slug: "basketball-stats",
+    group: "built",
     title: "Penn Club Basketball Stats",
     description:
       "A stats website for Penn's club basketball program that any club member can maintain. Club members enter raw box scores in a Google Sheet they already know, and the site turns them into team pages, player profiles, box scores, and leaderboards, with no logins, no database, and no code for anyone to learn.",
@@ -107,6 +115,7 @@ export const otherThings: OtherThing[] = [
   },
   {
     slug: "experiments",
+    group: "data-science",
     title: "Data Science Mini-Projects",
     description:
       "A collection of smaller personal projects exploring different tools, techniques, and datasets.",
@@ -159,6 +168,8 @@ export const otherThings: OtherThing[] = [
   },
   {
     slug: "wastewise",
+    group: "data-science",
+    drexel: true,
     title: "Waste Sorting Image Dataset",
     description:
       "An image dataset and machine learning model that classifies waste into recyclable, non-recyclable, and compostable categories, built from images pulled from Google, the TrashNet dataset, a drinking-waste dataset, and the TACO litter dataset.",
@@ -184,6 +195,8 @@ export const otherThings: OtherThing[] = [
   },
   {
     slug: "ecommerce-analysis",
+    group: "data-science",
+    drexel: true,
     title: "Walmart Sales Forecasting",
     description:
       "A sales-forecasting project using five years of daily Walmart sales data across California, Texas, and Wisconsin (the M5 Kaggle competition dataset), comparing Linear Regression, Random Forest, and XGBoost models.",
@@ -209,6 +222,8 @@ export const otherThings: OtherThing[] = [
   },
   {
     slug: "bookworm-recommender",
+    group: "data-science",
+    drexel: true,
     title: "Goodreads Book Recommender",
     description:
       "A book recommender system built on the Goodreads interactions dataset, using TF-IDF and cosine similarity to recommend titles based on content similarity.",
@@ -234,6 +249,8 @@ export const otherThings: OtherThing[] = [
   },
   {
     slug: "histology-classification",
+    group: "data-science",
+    drexel: true,
     title: "Breast Cancer Tissue Classifier",
     description:
       "A histology image classification project comparing several machine learning methods, completed with a classmate during a Master's in Data Science at Drexel University.",

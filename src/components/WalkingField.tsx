@@ -9,9 +9,12 @@ const TOUCH_QUERY = "(pointer: coarse)";
 
 export function WalkingField({
   top,
+  label,
   children,
 }: {
   top: React.ReactNode;
+  // Static heading shown just above the row (it doesn't scroll sideways).
+  label?: React.ReactNode;
   children: React.ReactNode;
 }) {
   const viewportRef = useRef<HTMLDivElement>(null);
@@ -115,10 +118,13 @@ export function WalkingField({
         className="bg-paper md:h-screen overflow-visible md:overflow-hidden flex flex-col"
       >
         {top}
+        {/* Clip only sideways (the row is wider than the screen) so a cow's
+            preview can still open upward over the hero. */}
         <div
           ref={viewportRef}
-          className="flex-1 min-h-0 overflow-visible md:overflow-hidden flex md:items-center"
+          className="flex-1 min-h-0 overflow-visible md:overflow-x-clip md:overflow-y-visible flex flex-col md:justify-center"
         >
+          {label}
           <div
             ref={rowRef}
             className="flex flex-col md:flex-row items-center md:items-start gap-10 md:gap-16 w-full md:w-max px-6 sm:px-10 lg:px-14 py-6 md:py-10"

@@ -36,27 +36,27 @@ export function Hero({ feature }: { feature?: React.ReactNode }) {
 
       <div className="relative max-w-5xl mx-auto px-6 sm:px-10 lg:px-14 flex flex-col md:flex-row items-center justify-center gap-10 md:gap-20">
         <div className="flex flex-col items-center md:items-start text-center md:text-left">
-        <motion.h1
-          initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, delay: 0.1, ease: EASE }}
-          className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight"
-        >
-          LAUREN MILLER
-        </motion.h1>
+          <motion.h1
+            initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.1, ease: EASE }}
+            className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight"
+          >
+            LAUREN MILLER
+          </motion.h1>
 
-        <motion.div
-          initial={reduceMotion ? false : { opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.3, ease: EASE }}
-        >
-          <p className="mt-3 text-xs sm:text-sm tracking-[0.18em] text-ink-soft uppercase">
-            Data Engineer · Analytics · Data Science
-          </p>
-          <p className="mt-4 max-w-md text-sm sm:text-base text-ink-soft italic">
-            Turning messy data into things people actually use.
-          </p>
-        </motion.div>
+          <motion.div
+            initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.3, ease: EASE }}
+          >
+            <p className="mt-3 text-xs sm:text-sm tracking-[0.18em] text-ink-soft uppercase">
+              Data Engineer · Analytics · Data Science
+            </p>
+            <p className="mt-4 max-w-md text-sm sm:text-base text-ink-soft italic">
+              Turning messy data into things people actually use.
+            </p>
+          </motion.div>
         </div>
 
         {feature ? (
@@ -69,17 +69,26 @@ export function Hero({ feature }: { feature?: React.ReactNode }) {
           </motion.div>
         ) : null}
       </div>
-
-      <motion.div
-        initial={reduceMotion ? false : { opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.3, delay: 1.0, ease: "easeOut" }}
-        className="relative mt-10 max-w-5xl mx-auto px-6 sm:px-10 lg:px-14 flex items-center gap-4 text-[11px] sm:text-xs tracking-[0.22em] text-ink-soft"
-      >
-        <span className="h-px flex-1 bg-rule" aria-hidden="true" />
-        <span className="font-semibold">SIDE PROJECTS · SELECT A COW TO EXPLORE</span>
-        <span className="h-px flex-1 bg-rule" aria-hidden="true" />
-      </motion.div>
     </div>
+  );
+}
+
+// Labeled divider that sits directly above the side-project herd.
+export function SideProjectsLabel() {
+  const reduceMotion = useReducedMotion();
+
+  return (
+    <motion.div
+      initial={reduceMotion ? false : { opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3, delay: 1.0, ease: "easeOut" }}
+      className="w-full max-w-5xl mx-auto px-6 sm:px-10 lg:px-14 flex items-center gap-4 text-[11px] sm:text-xs tracking-[0.22em] text-ink-soft"
+    >
+      <span className="h-px flex-1 bg-rule" aria-hidden="true" />
+      <span className="font-semibold">
+        SIDE PROJECTS · SELECT A COW TO EXPLORE
+      </span>
+      <span className="h-px flex-1 bg-rule" aria-hidden="true" />
+    </motion.div>
   );
 }

@@ -15,7 +15,8 @@ export function WorkCow() {
         label="AT WORK"
         meta="Data Engineering · Aramark"
         ctaLabel="SEE MY WORK →"
-        size={24}
+        size={20}
+        previewBelow
         depth={1}
       />
     </WalkingFieldContext.Provider>
