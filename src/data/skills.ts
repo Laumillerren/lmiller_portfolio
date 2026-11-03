@@ -8,7 +8,7 @@ export const skills: Skill[] = [
   {
     id: "sql",
     label: "SQL",
-    blurb: "Snowflake · relational databases · data modeling · analytics · complex querying",
+    blurb: "Snowflake · data modeling · complex querying · performance tuning",
   },
   {
     id: "python",
@@ -18,21 +18,41 @@ export const skills: Skill[] = [
   {
     id: "snowflake",
     label: "Snowflake",
-    blurb: "Warehousing · performance tuning · data modeling",
+    blurb: "Warehousing · Snowpipe · Tasks & Streams · performance tuning · cost optimization",
+  },
+  {
+    id: "dbt",
+    label: "dbt",
+    blurb: "Transformations · incremental models · data quality tests · dbt Cloud jobs",
+  },
+  {
+    id: "data-modeling",
+    label: "Data Modeling",
+    blurb: "Dimensional modeling · incremental models · change data capture",
   },
   {
     id: "aws",
     label: "AWS",
-    blurb: "Cloud infrastructure · storage · compute · data pipelines",
+    blurb: "S3 · Lambda · data pipelines",
+  },
+  {
+    id: "google-cloud",
+    label: "Google Cloud",
+    blurb: "Cloud data services · APIs",
+  },
+  {
+    id: "azure",
+    label: "Azure",
+    blurb: "Blob Storage · data pipelines",
   },
   {
     id: "data-visualization",
     label: "Data Visualization",
-    blurb: "Dashboards · charts · communicating data clearly",
+    blurb: "Power BI · Tableau · Sigma · communicating data clearly",
   },
   {
     id: "data-science",
     label: "Data Science",
-    blurb: "Statistical analysis · modeling · experimentation",
+    blurb: "Statistical analysis · modeling · experimentation · Python · R",
   },
 ];

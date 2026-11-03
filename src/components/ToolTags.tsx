@@ -1,9 +1,17 @@
-export function ToolTags({ tools }: { tools: string[] }) {
+export function ToolTags({
+  tools,
+  label = "TOOLS",
+}: {
+  tools: string[];
+  label?: string;
+}) {
   if (!tools.length) return null;
 
   return (
     <div>
-      <p className="text-[11px] font-semibold tracking-[0.2em] text-ink-soft mb-3">TOOLS</p>
+      <p className="text-[11px] font-semibold tracking-[0.2em] text-ink-soft mb-3">
+        {label}
+      </p>
       <ul className="flex flex-wrap gap-2 text-[11px] tracking-[0.1em]">
         {tools.map((tool) => (
           <li

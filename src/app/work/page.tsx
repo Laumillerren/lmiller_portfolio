@@ -34,7 +34,35 @@ const sections: { heading: string; paragraphs: string[]; wide?: boolean }[] = [
   },
 ];
 
-const tools = ["Snowflake", "dbt", "Python", "AWS", "Google Cloud", "Azure"];
+// Grouped so a long tool list stays scannable.
+const toolGroups: { label: string; tools: string[] }[] = [
+  { label: "LANGUAGES", tools: ["SQL", "Python", "Bash", "R"] },
+  { label: "WAREHOUSE & MODELING", tools: ["Snowflake", "dbt"] },
+  { label: "INGESTION", tools: ["Snowpipe", "Fivetran"] },
+  {
+    label: "ORCHESTRATION",
+    tools: ["Snowflake Tasks & Streams", "dbt Cloud jobs"],
+  },
+  {
+    label: "CLOUD",
+    tools: ["AWS S3", "AWS Lambda", "Google Cloud", "Azure Blob Storage"],
+  },
+  { label: "BI & REPORTING", tools: ["Power BI", "Tableau", "Sigma"] },
+  {
+    label: "ENGINEERING PRACTICES",
+    tools: ["Git & GitHub", "CI/CD", "Data quality testing"],
+  },
+  {
+    label: "CONCEPTS",
+    tools: [
+      "Dimensional modeling",
+      "Incremental models",
+      "Change data capture",
+      "Performance tuning",
+      "Cost optimization",
+    ],
+  },
+];
 
 export default function WorkOverviewPage() {
   return (
@@ -54,7 +82,14 @@ export default function WorkOverviewPage() {
         </ProjectHero>
 
         <div className="mt-10">
-          <ToolTags tools={tools} />
+          <h2 className="mb-6 text-[11px] font-semibold tracking-[0.2em] text-ink-soft">
+            TOOLS & SKILLS
+          </h2>
+          <div className="grid gap-x-10 gap-y-7 sm:grid-cols-2">
+            {toolGroups.map((g) => (
+              <ToolTags key={g.label} label={g.label} tools={g.tools} />
+            ))}
+          </div>
         </div>
 
         <div className="mt-14 grid gap-8 md:grid-cols-2">
