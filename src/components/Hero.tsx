@@ -5,7 +5,7 @@ import { Cloud } from "./Cloud";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-export function Hero() {
+export function Hero({ feature }: { feature?: React.ReactNode }) {
   const reduceMotion = useReducedMotion();
 
   return (
@@ -34,7 +34,8 @@ export function Hero() {
         className="absolute right-[26%] top-1 hidden lg:block"
       />
 
-      <div className="relative max-w-5xl mx-auto px-6 sm:px-10 lg:px-14 flex flex-col items-center text-center">
+      <div className="relative max-w-5xl mx-auto px-6 sm:px-10 lg:px-14 flex flex-col md:flex-row items-center justify-center gap-10 md:gap-20">
+        <div className="flex flex-col items-center md:items-start text-center md:text-left">
         <motion.h1
           initial={reduceMotion ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -56,16 +57,29 @@ export function Hero() {
             Turning messy data into things people actually use.
           </p>
         </motion.div>
+        </div>
 
-        <motion.div
-          initial={reduceMotion ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3, delay: 1.0, ease: "easeOut" }}
-          className="mt-8 text-[11px] sm:text-xs tracking-[0.22em] text-ink-soft"
-        >
-          SELECT A COW TO EXPLORE
-        </motion.div>
+        {feature ? (
+          <motion.div
+            initial={reduceMotion ? false : { opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.35, ease: EASE }}
+          >
+            {feature}
+          </motion.div>
+        ) : null}
       </div>
+
+      <motion.div
+        initial={reduceMotion ? false : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3, delay: 1.0, ease: "easeOut" }}
+        className="relative mt-10 max-w-5xl mx-auto px-6 sm:px-10 lg:px-14 flex items-center gap-4 text-[11px] sm:text-xs tracking-[0.22em] text-ink-soft"
+      >
+        <span className="h-px flex-1 bg-rule" aria-hidden="true" />
+        <span className="font-semibold">SIDE PROJECTS · SELECT A COW TO EXPLORE</span>
+        <span className="h-px flex-1 bg-rule" aria-hidden="true" />
+      </motion.div>
     </div>
   );
 }

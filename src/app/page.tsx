@@ -1,8 +1,8 @@
 import { CowUnit } from "@/components/CowUnit";
 import { WalkingField } from "@/components/WalkingField";
 import { Hero } from "@/components/Hero";
+import { WorkCow } from "@/components/WorkCow";
 import { seededRange } from "@/lib/cowMotion";
-import { work } from "@/data/work";
 import { otherThings } from "@/data/otherThings";
 
 // Speech bubbles stay on one line, so only the first few tools fit; the
@@ -11,20 +11,9 @@ function bubbleTools(tools: string[]) {
   return tools.slice(0, 4).join(" · ");
 }
 
-// Work-in-progress projects go to the end of the row; the rest keep their
-// order from the data files.
+// Side projects only (work lives behind the big hero cow). Work-in-progress
+// projects go to the end of the row; the rest keep their data-file order.
 const allItems = [
-  ...work.map((w) => ({
-    key: w.slug,
-    href: `/work/${w.slug}`,
-    label: w.title.toUpperCase(),
-    meta: bubbleTools(w.tools),
-    variant: w.variant,
-    wip: w.wip ?? false,
-    liveUrl: undefined as string | undefined,
-    speed: seededRange(w.slug, 0.82, 1.18),
-    depth: seededRange(w.slug + ":depth", 0, 1),
-  })),
   ...otherThings.map((o) => ({
     key: o.slug,
     href: `/other/${o.slug}`,
@@ -41,7 +30,7 @@ const allItems = [
 export default function Home() {
   return (
     <main className="flex-1 w-full">
-      <WalkingField top={<Hero />}>
+      <WalkingField top={<Hero feature={<WorkCow />} />}>
         {allItems.map((item, i) => (
           <CowUnit
             key={item.key}
