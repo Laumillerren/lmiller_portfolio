@@ -10,6 +10,18 @@ export function Hero({ feature }: { feature?: React.ReactNode }) {
 
   return (
     <div className="relative shrink-0 pt-14 pb-8 md:pt-16 md:pb-8">
+      <a
+        href="#about-contact"
+        onClick={(e) => {
+          e.preventDefault();
+          document
+            .getElementById("about-contact")
+            ?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
+        }}
+        className="absolute right-4 top-4 sm:right-6 z-10 border-2 border-ink bg-cream px-3 py-1.5 text-[10px] sm:text-[11px] font-semibold tracking-[0.14em] text-ink shadow-[3px_3px_0_var(--ink)] transition-[transform,box-shadow] duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0_var(--ink)]"
+      >
+        ABOUT &amp; CONTACT ↓
+      </a>
       <Cloud
         size={13}
         duration={18}

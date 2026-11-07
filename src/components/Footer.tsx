@@ -14,7 +14,10 @@ export function Footer() {
             Data Engineer · Analytics · Data Science
           </p>
         </div>
-        <div className="flex flex-col sm:flex-row items-center gap-14">
+        <div
+          id="about-contact"
+          className="flex flex-col sm:flex-row items-center gap-14 scroll-mt-24"
+        >
           <CowUnit href="/about" label="ABOUT" ctaLabel="READ MORE →" />
           <CowUnit href="/contact" label="CONTACT" ctaLabel="GET IN TOUCH →" />
         </div>
