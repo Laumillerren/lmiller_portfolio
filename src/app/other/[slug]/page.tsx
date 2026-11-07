@@ -71,7 +71,8 @@ export default async function OtherThingPage(
           <div className="mt-4 space-y-1 text-[11px] tracking-[0.06em] text-ink-soft">
             {item.liveRequiresLogin ? (
               <p>
-                The live site is members-only, so it opens to a sign-in screen.
+                {item.liveNote ??
+                  "The live site is members-only, so it opens to a sign-in screen."}
               </p>
             ) : null}
             {item.repoPrivate ? (

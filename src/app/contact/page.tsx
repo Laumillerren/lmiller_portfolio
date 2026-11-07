@@ -12,6 +12,11 @@ const links = [
   },
   { label: "GITHUB", href: "https://github.com/Laumillerren", display: "github.com/Laumillerren" },
   {
+    label: "MEDIUM",
+    href: "https://medium.com/@laurenthemiller",
+    display: "medium.com/@laurenthemiller",
+  },
+  {
     label: "LINKEDIN",
     href: "https://www.linkedin.com/in/lauren-miller-999263171/",
     display: "linkedin.com/in/lauren-miller-999263171",

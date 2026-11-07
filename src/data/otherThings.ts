@@ -12,6 +12,8 @@ export type OtherThing = {
   // Deployed site, and whether visitors hit a login/passcode screen there.
   liveUrl?: string;
   liveRequiresLogin?: boolean;
+  // Replaces the generic sign-in note, e.g. to share a demo password.
+  liveNote?: string;
   wip?: boolean;
   // Which part of the home page herd the cow walks in.
   group: "built" | "data-science";
@@ -45,7 +47,10 @@ export const otherThings: OtherThing[] = [
     repoPrivate: true,
     liveUrl: "https://bookclub-tracker-zeta.vercel.app/",
     liveRequiresLogin: true,
-    wip: true,
+    liveNote:
+      "The live site opens to a sign-in screen. Enter the password \"sample\" to explore a demo club with made-up members.",
+    mediumUrl:
+      "https://medium.com/@laurenthemiller/the-data-engineering-behind-a-book-club-app-0f411c203652",
     tools: ["Next.js", "Prisma", "Framer Motion", "Vercel Blob"],
   },
   {
