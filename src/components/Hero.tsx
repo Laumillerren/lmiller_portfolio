@@ -37,7 +37,7 @@ export function Hero({ feature }: { feature?: React.ReactNode }) {
         size={16}
         duration={20}
         delay={1}
-        className="absolute left-[24%] top-16 hidden md:block"
+        className="absolute left-[50%] top-4 hidden md:block"
       />
       <Cloud
         size={11}
